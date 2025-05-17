@@ -1,3 +1,4 @@
+.DS_Store
 __pycache__/
 .venv/
 .env
@@ -5,3 +6,6 @@ __pycache__/
 .ipynb_checkpoints
 .pth
 .pt
+
+#ignore dataset (download locally)
+/data/
