@@ -7,5 +7,5 @@ __pycache__/
 .pth
 .pt
 
-#ignore dataset (download locally)
+#dataset (download locally)
 /data/
