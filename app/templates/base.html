@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAIA - Plant Disease Recognition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>GAIA</h1>
+
+        {% block content %}
+        {% endblock %}
+
+        <div class="footer">
+            ~ Developed by: Team GreenMind ~<br><br>
+            John Scuito<br>
+            Tory Thornton-Bott<br>
+            Ahmad<br>
+            Arjun<br>
+            Joshua Djordjevic<br><br>
+            Background pattern from TransparentTextures.com
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+
+@font-face {
+    font-family: "plants";
+    src: url("{{ url_for('static', filename='fonts/Arborisfolium-vmdWL.ttf') }}") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "headerFont";
+    src: url("{{ url_for('static', filename='fonts/logo.ttf') }}") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('https://www.transparenttextures.com/patterns/green-dust-and-scratches.png');
+    background-color: #e8f5e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: white;
+    text-align: center;
+    width: 360px;
+    padding: 20px;
+    border-top: 8px solid #4caf50;
+}
+h1 {
+    font-family: 'headerFont', serif;
+    font-size: 48px;
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+.preview {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #a5d6a7;
+    background-color: #f1f8e9;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+button, input[type="file"] {
+    margin: 10px 0;
+    padding: 8px 14px;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    border-radius: 4px;
+    background-color: #66bb6a;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+button:hover, input[type="file"]:hover {
+    background-color: #388e3c;
+}
+#result {
+    border: 1px solid #c8e6c9;
+    background: #f1f8e9;
+    color: #2e7d32;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    white-space: pre-wrap;
+    text-align: left;
+    border-radius: 4px;
+}
+.footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
