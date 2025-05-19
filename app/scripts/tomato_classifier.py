@@ -1,4 +1,5 @@
 import os
+from typing import List
 import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
@@ -7,7 +8,7 @@ import json
 from .prediction import PredictionResult
 
 class TomatoClassifier:
-    def __init__(self, model_path='models/tomato.h5', class_indices_path='models/tomato_class_indices.json', img_size=224):
+    def __init__(self, class_names: List[str], model_path='models/tomato.h5', img_size=224):
         """
         Load a pre-trained tomato disease classification model.
 
@@ -16,13 +17,9 @@ class TomatoClassifier:
             class_indices_path: Path to the class indices JSON file
             img_size: Size to resize the input images
         """
+        self.class_names = class_names
         self.model = load_model(model_path)
         self.img_size = img_size
-
-        with open(class_indices_path, 'r') as f:
-            self.class_indices = json.load(f)
-        
-        self.indices_to_classes = {v: k for k, v in self.class_indices.items()}
 
     def predict_image(self, image_path) -> PredictionResult:
         """
@@ -43,11 +40,11 @@ class TomatoClassifier:
 
         top_indices = predictions.argsort()[-4:][::-1]
         top_predictions = [
-            (self.indices_to_classes[str(i)], float(predictions[i]))
+            (self.class_names[i], float(predictions[i]))
             for i in top_indices
         ]
 
         return PredictionResult(
             top_predictions,
-            {self.indices_to_classes[str(i)]: float(prob) for i, prob in enumerate(predictions)}
+            {self.class_names[i]: float(prob) for i, prob in enumerate(predictions)}
         )

@@ -12,13 +12,11 @@ fp_models = os.path.join(fp_root, 'models')
 fp_model_potato = os.path.join(fp_models, 'potato.pth')
 fp_model_strawberry = os.path.join(fp_models, 'strawberry.h5')
 fp_model_tomato = os.path.join(fp_models, 'tomato.h5')
-fp_model_tomato_indices = os.path.join(fp_models, 'tomato.json')
 
 models = ModelManager(
     fp_model_potato,
     fp_model_strawberry,
-    fp_model_tomato,
-    fp_model_tomato_indices)
+    fp_model_tomato)
 
 @app.route('/')
 def index():
@@ -27,30 +25,42 @@ def index():
 @app.route('/analyze', methods=['POST'])
 def analyze():
     image = request.files.get('image')
+    model_type = request.form.get('model', 'potato')  # Default to potato
     result = "No image uploaded."
     image_data = None
 
     if image:
-        # Read and encode the image
-        img_bytes = image.read()
-        encoded = base64.b64encode(img_bytes).decode('utf-8')
-        image_data = f"data:{image.mimetype};base64,{encoded}"
+        # Save the uploaded image to a temporary path
+        filename = secure_filename(image.filename)
+        temp_path = os.path.join(fp_root, 'temp_' + filename)
+        image.save(temp_path)
 
-        # Save image to temp file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp_img:
-            temp_img.write(img_bytes)
-            temp_img_path = temp_img.name
+        # Read and encode the image for preview
+        with open(temp_path, 'rb') as img_file:
+            encoded = base64.b64encode(img_file.read()).decode('utf-8')
+            image_data = f"data:{image.mimetype};base64,{encoded}"
 
-        # Predict using potato model
+        # Predict using selected model
         try:
-            prediction = models.predict_potato(temp_img_path)
-            result = formatting.format_prediction(prediction)
+            if model_type == 'potato':
+                prediction = formatting.format_prediction(models.predict_potato(temp_path))
+            elif model_type == 'strawberry':
+                prediction = formatting.format_prediction(models.predict_strawberry(temp_path))
+            elif model_type == 'tomato':
+                prediction = formatting.format_prediction(models.predict_tomato(temp_path))
+            else:
+                prediction = "Unknown model selected."
+
+            result = prediction
         except Exception as e:
-            result = f"Error during prediction: {e}"
-        finally:
-            os.remove(temp_img_path)
+            result = f"Error: {e}"
+
+        # Clean up temporary image
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
 
     return render_template('index.html', result=result, image_data=image_data)
+
 
 if __name__ == '__main__':
     app.run("0.0.0.0", debug=True)

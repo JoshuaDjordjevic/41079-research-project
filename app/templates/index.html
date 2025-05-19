@@ -6,6 +6,14 @@
 
 <form id="uploadForm" action="/analyze" method="POST" enctype="multipart/form-data">
     <input type="file" name="image" accept="image/*" onchange="previewImage(event)"><br>
+
+    <label for="model">Select Model:</label>
+    <select name="model" id="model">
+        <option value="potato">Potato</option>
+        <option value="strawberry">Strawberry</option>
+        <option value="tomato">Tomato</option>
+    </select><br>
+
     <button type="submit">ANALYSE</button>
 </form>
 
