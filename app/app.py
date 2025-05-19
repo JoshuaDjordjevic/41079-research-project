@@ -1,7 +1,6 @@
 import base64
 import os
-import tempfile
-from flask import Flask, request, render_template, send_from_directory, url_for
+from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 from scripts import ModelManager, formatting
 

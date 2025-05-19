@@ -14,18 +14,10 @@ CLASS_NAMES_STRAWBERRY = [
     'Powdery Mildew Fruit', 'Powdery Mildew Leaf']
 
 CLASS_NAMES_TOMATO = [
-    'Bacterial Spot',
-    'Early Blight',
-    'Late Blight',
-    'Leaf Mold',
-    'Septoria Leaf Spot',
-    'Spider Mites',
-    'Target Spot',
-    'Yellow Leaf Curl Virus',
-    'Mosaic Virus',
-    'Healthy',
-    'Powdery Mildew',
-]
+    'Bacterial Spot', 'Early Blight', 'Late Blight',
+    'Leaf Mold', 'Septoria Leaf Spot', 'Spider Mites',
+    'Target Spot', 'Yellow Leaf Curl Virus', 'Mosaic Virus',
+    'Healthy', 'Powdery Mildew',]
 
 class ModelManager(object):
     def __init__(self,
